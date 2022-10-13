@@ -1,0 +1,183 @@
+\documentclass{report}
+
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+
+\title{\Huge{Statistical Mechanics}\\Homework 4}
+\author{\huge{Harlan Heilman}}
+\date{October 2022}
+
+\begin{document}
+
+\maketitle
+\newpage% or \cleardoublepage
+% \pdfbookmark[<level>]{<title>}{<dest>}
+\nt{On notation: \\
+    \indent $\langle V \rangle$ defines the average, time or otherwise.\\
+    \indent Following Einstein's summation convention, there are implied summations over repeated indices. 
+}  
+
+\underline{Problem 3.19}: Consider the long-time averaged behavior of the quantity $dG/dt$ , where
+\[
+    G = \sum_i q_ip_i
+\]
+\indent and show that the validity of equation (3.7.5) implies the validity of equation (3.7.6), and vice
+versa.
+
+\pf{Solution}{Consider the partial time derivative of $G$ (with implied summation over repeated indices) , we have 
+\[
+    \partial_t[G] = \dot{q_i}p_i+q_i\dot{p_i}
+\]
+Now, suppose that $\{p,q\}$ are the generalised coordinate and conjugate momentum from some Hamiltonian, then 
+\[
+    \partial_t[G] = \partial_p[H]p_i-q_i\partial_q[H]
+\]
+Then the time average over a time period $t'$ is simply
+\begin{align*}
+    \langle\partial_t[G]\rangle &= \frac{1}{t'}\int_t^{t+t'}dt\ \dot{G}\\
+                                &= \frac{G(t+t')-G(t)}{t'}
+\end{align*}
+Now this is the difference quotient, so taking G to vary slowly over the interval $(t,t+t')$, we have
+\[
+    \frac{G(t+t')-G(t)}{t'}\to 0
+\]
+So, the time average of the time rate of change of G is identically zero so long as the above condition holds. Now, this implies directly that 
+\[
+    \langle\partial_t[G]\rangle = 0
+\]
+or, 
+\begin{equation}
+    \langle \dot{q_i}p_i \rangle  = -\langle q_i\dot{p_i} \rangle
+\end{equation}
+From the text, we have
+\[
+    (3.7.5):\ \langle q_i\dot{p_i} \rangle = 3NKT
+\]
+So using (1), we have the required condition 
+\[
+    (3.7.6):\ \langle \dot{q_i}p_i \rangle = -\langle q_i\dot{p_i} \rangle = 3NKT
+\]
+}
+\underline{Problem 3.22}: The restoring force of an anharmonic oscillator is proportional to the cube of the displacement. Show that the mean kinetic energy of the oscillator is twice its mean potential energy.
+
+\nt{The Virial theorem states that
+\[
+    \langle T\rangle = -\frac{1}{2}\langle q_i\dot{p}_i\rangle = -\frac{1}{2}\mathcal{V}
+\]
+}
+
+\pf{Solution}{From the results of the prior problem, and the definition of the Virial, 
+\[
+    \langle \dot{q_i}p_i \rangle = -\langle q_i\dot{p_i} \rangle = 2\langle T\rangle
+\]
+Now with the anharmonic oscillator we know $\dot{p}_i = \beta q_i^3$, giving 
+\[
+     2\langle T\rangle = -\langle q_i^4 \rangle 
+\]
+Now, the potential for this system is simply 
+\[
+    U = -\int q_i^3 dq_i = -\frac{1}{4}q_i^4
+\]
+so, the Virial is simply 
+\[
+    -\langle q_i^4 \rangle = 4\langle U\rangle
+\]
+Thus we have the required solution 
+\begin{equation}
+    2\langle T\rangle = 4\langle U\rangle \iff \langle T\rangle = 2\langle U\rangle
+\end{equation}
+}
+\nt{
+Now this could be done in one step with $2\langle T\rangle = n\langle U\rangle$ for $n$ the polynomial order of the potential. 
+}
+
+\underline{3.31}: Study, along the lines of Section 3.8, the statistical mechanics of a system of N “Fermi oscillators,”
+which are characterized by only two eigenvalues, namely, 0 and $\epsilon$.\\
+
+\pf{Solution}{For N harmonic oscillators, the partition function is 
+\begin{equation}
+    Q_N = (1+\exp(-\beta\epsilon))^N
+\end{equation}
+So, using this, we can find the Helmholtz free energy by taking the log of (3). This gives 
+\begin{equation}
+    A = -kT\ln(Q_N) = -kTN\ln(1-\exp(-\beta\epsilon))
+\end{equation}
+Whereby, 
+\begin{align}
+    \mu &= \frac{A}{N}=kT\ln(1-\exp(-\beta\epsilon))\\
+    S &= -\partial_T[A] = kN\left[\ln(1-\exp(-\beta\epsilon))+\frac{\epsilon }{kT(\exp(\beta\epsilon)-1)}\right]\\
+    P &= 0\\
+    U &= A-TS = \frac{N\epsilon}{\exp(\beta\epsilon)-1}\\
+    C_v &= C_p = \partial_T[U] = Nk
+\end{align}
+}
+\underline{3.32}: The quantum states available to a given physical system are (i) a group of $g_i$ equally likely
+states, with a common energy $\epsilon_1$ and (ii) a group of $g_2$ equally likely states, with a common
+energy $\epsilon_1<\epsilon_2$ Show that this entropy of the system is given by
+\[
+    S = -k[p_1\ln(p_1/g_1)+p_2\ln(p_2/g_2)]
+\]
+where $p_1$ and $p_2$ are, respectively, the probabilities of the system being in a state belonging to
+group 1 or to group 2, where $p_1 + p_2 = 1$.
+\begin{itemize}
+    \item [(a)] Assuming that the $p_i$ are given by a canonical distribution, show that
+    \[
+    S = k\left[\ln(g_1)-\ln(1+g_1/g_2e^{-x})+\frac{x}{1-(g_1/g_2)e^x}\right]
+    \]
+    where $x = (\epsilon_2 − \epsilon_1)/kT$ , assumed positive. Compare the special case $g_1 = g_2 = 1$ with that
+    of the Fermi oscillator of the preceding problem.
+    \item[(b)] Verify the foregoing expression for S by deriving it from the partition function of the system.
+    \item[(c)] Check that at $T\to 0$, $S\to k \ln(g_1)$. Interpret this result physically.
+\end{itemize}
+\pf{Solution}{From equation (3.3.13), the entropy of the system is simply 
+\[
+    S = -k\langle \ln(P_r)\rangle = -k g_rPr\ln(Pr) = -k[g_1P_1\ln(P_1)+g_2P_2\ln(P_2)]
+\]
+But, if $p_1$ is the probability of the state belonging to group 1, then $P_1 = p_1/g_1$, and thus we have 
+\begin{equation}
+    S = -k[p_1\ln(p_1/g_1)+p_2\ln(p_2/g_2)]
+\end{equation}
+(a) Suppose that these probabilities come from a Canonical distribution, then we know 
+\begin{align*} 
+    p_1 &= \frac{g_1 \exp(-\beta \epsilon_1)}{g_1\exp(-\beta\epsilon_1)1+g_2\exp(-\beta\epsilon_2)} = \frac{g_1}{g_1+g_2\exp(-x)}\\
+    p_2 &= \frac{g_2}{g_2+g_1\exp(x)}
+\end{align*}
+Then from (10), we find the entropy as 
+\begin{align*}
+    S &= -k\left[\frac{g_2}{g_2+g_1\exp(x)}\ln(\frac{1}{g_2+g_1\exp(x)})+\frac{g_1}{g_1+g_2\exp(-x)}\ln(\frac{1}{g_1+g_2\exp(-x)})\right]\\
+      &= k\left[\frac{g_2}{g_2+g_1\exp(x)}\ln(g_2+g_1\exp(x))+\frac{g_1}{g_1+g_2\exp(-x)}\ln(g_1+g_2\exp(-x))\right]\\
+      &= k\left[p_2(\ln(g_1)+\ln(1+g_1x/g_2))+p_1(ln(g_1)+x+\ln(1+g_1x/g_2))\right]\\
+      &=k\left[\ln(g_1)+\ln(1+\frac{g_1}{g_2}x)+p_1x\right] = k\left[\ln(g_1)-\ln(1+g_1/g_2e^{-x})+\frac{x}{1-(g_1/g_2)e^x}\right]
+\end{align*}
+Now, using the requirement that $g_1 = g_2$, we note that $\ln(1) = 0$, and we set $\epsilon_2-\epsilon_1 = \epsilon$ giving 
+\[
+    S = k\left[\ln(1+\exp(-\beta\epsilon))+\frac{\beta\epsilon}{1+\exp(\beta\epsilon)}\right]
+\]
+The same equation as (6)
+(b) Starting from the partition function, we have 
+\begin{equation}
+    Q = g_1\exp(-\beta\epsilon_1)+g_2\exp(-\beta\epsilon_2)
+\end{equation}
+Now, Helmholtz free energy comes from taking the log of (12) giving 
+\[
+    A = -kT\ln(g_1\exp(-\beta\epsilon_1)+g_2\exp(-\beta\epsilon_2))
+\]
+Writing this in terms of the defined $x$ gives us 
+\begin{equation}
+    A = -kT\left[\ln(g_1)+\ln(1+\frac{g_2}{g_1}\exp(-x))\right]
+\end{equation}
+So, the entropy of the system is simply
+\begin{equation}
+    S = -\partial_T[A] = -\frac{1}{T}A+\frac{kx}{1+\frac{g_1}{g_2}\exp(x)}
+\end{equation}
+The exact same equation as (a). 
+(c) For low temperature, $x\to \infty$ and $A/T \to k\ln(g_1)$. The second term from differentiating the log has an exponential growth in the denominator that kills the function faster than the linear numerator. So we only have the Helmholtz free energy term that gives us 
+\begin{equation}
+    T\to 0 \iff S \to \frac{kT}{T}\ln(g_1) = k\ln(g_1)
+\end{equation}
+
+
+}
+
+\end{document}
